@@ -46,5 +46,5 @@ else:
                 break
     else:
         image_to_ascii(IMG)
-finally:
+
     IMG.close()
