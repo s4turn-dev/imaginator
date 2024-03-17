@@ -1,10 +1,10 @@
 from PIL import Image
 from math import floor
 from time import sleep
-import sys
+from sys import argv
+from os import get_terminal_size
 
 ABC = '`+*/lOZH8@'[::]
-TERMINAL_SIZE = []
 
 def pixels_to_ascii(pixel_array: tuple) -> str:
     result = ''
@@ -17,17 +17,17 @@ def pixels_to_ascii(pixel_array: tuple) -> str:
 
 
 def image_to_ascii(gif):
-    img = gif.resize(TERMINAL_SIZE)
+    size = get_terminal_size()
+    img = gif.resize((size.columns, size.lines))
     data = list(img.getdata())
     if type(data[0]) is tuple:
         print(pixels_to_ascii(data))
 
 
-sys.argv += [''] * (2 - len(sys.argv[3:]))
+argv += [''] * (2 - len(argv[1:]))
 
-TERMINAL_SIZE = int(sys.argv[1]), int(sys.argv[2])
-filename = sys.argv[3] or input('Filename: ')
-try: delay = float(sys.argv[4])
+filename = argv[1] or input('Filename: ')
+try: delay = float(argv[2])
 except ValueError: delay = 0.1
 
 try:
